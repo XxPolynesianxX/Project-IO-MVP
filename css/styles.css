@@ -282,3 +282,32 @@ button:focus {
     outline: 2px solid #4ecdc4;
     outline-offset: 2px;
 }
+
+/* Spotify Embed Styles */
+.spotify-embed {
+    border-radius: 12px;
+    margin: 20px 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.spotify-embed:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive Spotify embed */
+@media (max-width: 768px) {
+    .spotify-embed {
+        height: 280px;
+        margin: 15px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .spotify-embed {
+        height: 232px;
+        margin: 10px 0;
+    }
+}
