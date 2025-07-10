@@ -1,0 +1,284 @@
+/* Project IO MVP Styles */
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #000;
+    color: #fff;
+    overflow: hidden;
+}
+
+#app {
+    height: 100vh;
+    position: relative;
+}
+
+/* Progress Bar */
+#progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+}
+
+#progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+    width: 33.33%;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+/* Content Container */
+#content-container {
+    height: 100vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+/* Hide scrollbar but keep functionality */
+#content-container::-webkit-scrollbar {
+    display: none;
+}
+
+#content-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Page Sections */
+.page-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px 20px;
+    scroll-snap-align: start;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    position: relative;
+}
+
+.page-section:nth-child(even) {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.page-section:nth-child(3n) {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.page-content {
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.page-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.page-content h2 {
+    font-size: 2rem;
+    margin: 2rem 0 1rem;
+    color: #f8f9fa;
+}
+
+.page-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.sample-content {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sample-content ul {
+    text-align: left;
+    max-width: 400px;
+    margin: 1rem auto;
+}
+
+.sample-content li {
+    margin: 0.5rem 0;
+    padding-left: 1rem;
+}
+
+/* Navigation Controls */
+#navigation {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#navigation button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+#navigation button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+#navigation button:active {
+    transform: scale(0.95);
+}
+
+#navigation button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#page-counter {
+    font-size: 0.9rem;
+    color: #fff;
+    font-weight: 500;
+    margin: 5px 0;
+    opacity: 0.8;
+}
+
+/* Touch Hint */
+#touch-hint {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    opacity: 0.7;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    animation: fadeInOut 3s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 0.3; }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .page-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .page-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .page-content p {
+        font-size: 1.1rem;
+    }
+    
+    .page-section {
+        padding: 40px 15px 15px;
+    }
+    
+    #navigation {
+        bottom: 20px;
+        right: 20px;
+        padding: 10px;
+    }
+    
+    #navigation button {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+    
+    #touch-hint {
+        bottom: 20px;
+        left: 20px;
+        font-size: 0.7rem;
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-content h1 {
+        font-size: 2rem;
+    }
+    
+    .sample-content {
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    
+    #navigation {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    #touch-hint {
+        display: none; /* Hide on very small screens */
+    }
+}
+
+/* Dark theme enhancements */
+.page-section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Smooth focus for accessibility */
+button:focus {
+    outline: 2px solid #4ecdc4;
+    outline-offset: 2px;
+}
