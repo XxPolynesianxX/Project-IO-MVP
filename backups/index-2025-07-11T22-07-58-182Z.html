@@ -20,18 +20,18 @@
             
             <div class="page-section" id="page-1">
                 <div class="page-content">
-                    <div style="text-align: center; padding: 20px;">
-    <div style="font-size: clamp(8rem, 25vw, 16rem); line-height: 1; margin: 20px 0; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.3);">
-        家
-    </div>
-    <div style="font-size: clamp(1.2rem, 4vw, 1.8rem); color: #ccc; margin: 10px 0; font-style: italic; letter-spacing: 0.2em;">
-        jiā
-    </div>
-    <div style="background: rgba(255,255,255,0.1); padding: 30px 20px; border-radius: 15px; margin: 40px 0; max-width: 600px; margin-left: auto; margin-right: auto;">
-        <p style="font-size: clamp(1rem, 3vw, 1.3rem); line-height: 1.6; color: #fff; margin: 0; font-weight: 300;">
-            "Home is not a place, but a feeling. It's where love lives, memories are created, and hearts find peace."
-        </p>
-    </div>
+                    <h1>Welcome to Project IO</h1>
+<p>This is your first page of content!</p>
+<div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin: 20px 0;">
+    <h2>🚀 Getting Started</h2>
+    <p>Replace this content with your own by editing the files in the content/ folder.</p>
+    <p>Each page can contain any HTML content you want:</p>
+    <ul style="text-align: left; max-width: 400px; margin: 0 auto;">
+        <li>Text and headings</li>
+        <li>Images and videos</li>
+        <li>Interactive elements</li>
+        <li>Custom styling</li>
+    </ul>
 </div>
                 </div>
             </div>
@@ -44,36 +44,125 @@
             <div class="page-section" id="page-3">
                 <div class="page-content">
                     <h1>🎵 Music Experience</h1>
-<p>This page features embedded Spotify content.</p>
+<p>This page features embedded Spotify content with a toggle player.</p>
 <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin: 20px 0;">
     <h2>Now Playing</h2>
-    <p>Enjoy this track while browsing:</p>
-    <!-- Spotify Embed iFrame -->
+    <p>Control your music experience:</p>
+    <!-- Toggle Button -->
+    <button id="page3-toggle-btn" onclick="togglePage3Player()" style="
+        background: linear-gradient(45deg, #1DB954, #1ed760);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+        margin-bottom: 20px;
+    ">▶️ Show Player</button>
+    <!-- Spotify Embed iFrame - Initially Hidden -->
     <iframe 
-        class="spotify-embed"
-        src="https://open.spotify.com/embed/track/0C6Sbwuo42ebcvGWeWCSEq?utm_source=generator" 
+        id="page3-spotify-embed"
+        class="page3-spotify-embed"
+        src="https://open.spotify.com/embed/track/0C6Sbwuo42ebcvGWeWCSEq?utm_source=generator&theme=0" 
         width="100%" 
         height="352" 
         frameBorder="0" 
         allowfullscreen="" 
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
         loading="lazy"
-        style="border-radius: 12px; margin: 20px 0;">
+        style="
+            border-radius: 12px; 
+            margin: 20px 0;
+            transition: all 0.4s ease;
+            transform: translateY(-20px);
+            opacity: 0;
+            display: none;
+        ">
     </iframe>
 </div>
 <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin: 20px 0;">
     <h3>🎧 Music Controls</h3>
-    <p>Use the Spotify player above to:</p>
+    <p>Use the player above to:</p>
     <ul style="text-align: left;">
-        <li><strong>Play/Pause</strong> - Control playback</li>
+        <li><strong>Show/Hide Player</strong> - Toggle visibility with smooth animation</li>
+        <li><strong>Play/Pause</strong> - Control playback (music continues when hidden)</li>
         <li><strong>Follow</strong> - Save to your library</li>
         <li><strong>Share</strong> - Send to friends</li>
         <li><strong>Open in Spotify</strong> - Full app experience</li>
     </ul>
 </div>
 <p style="opacity: 0.8; font-size: 0.9rem;">
-    💡 <strong>Tip:</strong> Music will continue playing as you navigate through pages!
+    💡 <strong>Tip:</strong> Music continues playing even when the player is hidden! Navigate through pages without interruption.
 </p>
+<style>
+    #page3-toggle-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(29, 185, 84, 0.4);
+    }
+    #page3-toggle-btn:active {
+        transform: translateY(0);
+    }
+    #page3-spotify-embed.visible {
+        display: block !important;
+        transform: translateY(0);
+        opacity: 1;
+    }
+    @media (max-width: 768px) {
+        #page3-toggle-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+        }
+        #page3-spotify-embed {
+            height: 200px;
+        }
+    }
+</style>
+<script>
+// Global function to avoid conflicts
+window.page3PlayerVisible = false;
+window.togglePage3Player = function() {
+    console.log('Toggle function called, current state:', window.page3PlayerVisible);
+    const embed = document.getElementById('page3-spotify-embed');
+    const btn = document.getElementById('page3-toggle-btn');
+    if (!embed || !btn) {
+        console.error('Page 3 elements not found');
+        return;
+    }
+    if (!window.page3PlayerVisible) {
+        // Show player
+        console.log('Showing player...');
+        embed.style.display = 'block';
+        // Small delay for reflow
+        setTimeout(() => {
+            embed.classList.add('visible');
+        }, 10);
+        btn.textContent = '🎵 Hide Player';
+        btn.style.background = 'linear-gradient(45deg, #ff6b6b, #ee5a52)';
+        window.page3PlayerVisible = true;
+        console.log('Player should now be visible');
+    } else {
+        // Hide player
+        console.log('Hiding player...');
+        embed.classList.remove('visible');
+        btn.textContent = '▶️ Show Player';
+        btn.style.background = 'linear-gradient(45deg, #1DB954, #1ed760)';
+        window.page3PlayerVisible = false;
+        // Wait for animation before hiding
+        setTimeout(() => {
+            if (!window.page3PlayerVisible) {
+                embed.style.display = 'none';
+            }
+        }, 400);
+        console.log('Player should now be hidden');
+    }
+};
+// Test that everything is working
+console.log('Page 3 script loaded successfully');
+</script>
                 </div>
             </div>
             <div class="page-section" id="page-4">

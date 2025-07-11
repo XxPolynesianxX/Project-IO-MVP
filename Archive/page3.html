@@ -1,0 +1,177 @@
+<h1>🎵 Music Experience</h1>
+<p>This page features embedded Spotify content with a toggle player.</p>
+
+<div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin: 20px 0;">
+    <h2>Now Playing</h2>
+    <p>Control your music experience:</p>
+    
+    <!-- Toggle Button -->
+    <button id="page3-toggle-btn" style="
+        background: linear-gradient(45deg, #1DB954, #1ed760);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+        margin-bottom: 20px;
+    ">▶️ Show Player</button>
+    
+    <!-- Spotify Embed iFrame - Initially Hidden -->
+    <iframe 
+        id="page3-spotify-embed"
+        class="page3-spotify-embed"
+        src="https://open.spotify.com/embed/track/0C6Sbwuo42ebcvGWeWCSEq?utm_source=generator&theme=0" 
+        width="100%" 
+        height="352" 
+        frameBorder="0" 
+        allowfullscreen="" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+        loading="lazy"
+        style="
+            border-radius: 12px; 
+            margin: 20px 0;
+            transition: all 0.4s ease;
+            transform: translateY(-20px);
+            opacity: 0;
+            display: none;
+        ">
+    </iframe>
+</div>
+
+<div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin: 20px 0;">
+    <h3>🎧 Music Controls</h3>
+    <p>Use the player above to:</p>
+    <ul style="text-align: left;">
+        <li><strong>Show/Hide Player</strong> - Toggle visibility with smooth animation</li>
+        <li><strong>Play/Pause</strong> - Control playback (music continues when hidden)</li>
+        <li><strong>Follow</strong> - Save to your library</li>
+        <li><strong>Share</strong> - Send to friends</li>
+        <li><strong>Open in Spotify</strong> - Full app experience</li>
+    </ul>
+</div>
+
+<p style="opacity: 0.8; font-size: 0.9rem;">
+    💡 <strong>Tip:</strong> Music continues playing even when the player is hidden! Navigate through pages without interruption.
+</p>
+
+<style>
+    #page3-toggle-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(29, 185, 84, 0.4);
+    }
+    
+    #page3-toggle-btn:active {
+        transform: translateY(0);
+    }
+    
+    #page3-spotify-embed.visible {
+        display: block !important;
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    @media (max-width: 768px) {
+        #page3-toggle-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+        }
+        
+        #page3-spotify-embed {
+            height: 200px;
+        }
+    }
+</style>
+
+<script>
+(function() {
+    'use strict';
+    
+    // Avoid conflicts by using a more unique namespace
+    if (!window.SpotifyPlayerController) {
+        window.SpotifyPlayerController = {
+            isVisible: false,
+            isInitialized: false,
+            
+            init: function() {
+                if (this.isInitialized) return;
+                
+                const button = document.getElementById('page3-toggle-btn');
+                if (button) {
+                    // Remove any existing onclick to avoid conflicts
+                    button.onclick = null;
+                    button.removeAttribute('onclick');
+                    
+                    // Add event listener instead of onclick
+                    button.addEventListener('click', this.toggle.bind(this));
+                    this.isInitialized = true;
+                    console.log('✅ Spotify player controller initialized');
+                }
+            },
+            
+            toggle: function() {
+                console.log('🎵 Toggling Spotify player, current state:', this.isVisible);
+                
+                const embed = document.getElementById('page3-spotify-embed');
+                const btn = document.getElementById('page3-toggle-btn');
+                
+                if (!embed || !btn) {
+                    console.error('❌ Spotify player elements not found');
+                    return;
+                }
+                
+                if (!this.isVisible) {
+                    this.show(embed, btn);
+                } else {
+                    this.hide(embed, btn);
+                }
+            },
+            
+            show: function(embed, btn) {
+                console.log('👀 Showing Spotify player...');
+                embed.style.display = 'block';
+                
+                // Force reflow and add visible class
+                requestAnimationFrame(() => {
+                    embed.classList.add('visible');
+                });
+                
+                btn.textContent = '🎵 Hide Player';
+                btn.style.background = 'linear-gradient(45deg, #ff6b6b, #ee5a52)';
+                this.isVisible = true;
+            },
+            
+            hide: function(embed, btn) {
+                console.log('🙈 Hiding Spotify player...');
+                embed.classList.remove('visible');
+                btn.textContent = '▶️ Show Player';
+                btn.style.background = 'linear-gradient(45deg, #1DB954, #1ed760)';
+                this.isVisible = false;
+                
+                // Wait for CSS transition before hiding
+                setTimeout(() => {
+                    if (!this.isVisible) {
+                        embed.style.display = 'none';
+                    }
+                }, 400);
+            }
+        };
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => window.SpotifyPlayerController.init(), 100);
+        });
+    } else {
+        // DOM is already ready
+        setTimeout(() => window.SpotifyPlayerController.init(), 100);
+    }
+    
+    console.log('📱 Page 3 Spotify player script loaded');
+})();
+</script>
