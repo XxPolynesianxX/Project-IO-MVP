@@ -394,6 +394,40 @@ button:focus {
     outline-offset: 2px;
 }
 
+/* Home Character Styling */
+.home-character {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    transition: all 0.3s ease;
+    animation: gentle-pulse 4s ease-in-out infinite;
+    position: relative;
+}
+
+.home-character:active {
+    transform: scale(0.95);
+}
+
+/* Hover effects only for devices that support hover */
+@media (hover: hover) {
+    .home-character:hover {
+        transform: scale(1.05);
+        text-shadow: 0 0 30px rgba(255,255,255,0.6);
+    }
+}
+
+@keyframes gentle-pulse {
+    0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 20px rgba(255,255,255,0.3);
+    }
+    50% {
+        opacity: 0.8;
+        text-shadow: 0 0 25px rgba(255,255,255,0.5);
+    }
+}
+
 /* Spotify Embed Styles */
 .spotify-embed {
     border-radius: 12px;
