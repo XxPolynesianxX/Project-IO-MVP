@@ -59,6 +59,11 @@ Content preloader
 Progress tracker
 Mobile touch gesture support
 
+8. Additional features
+8.1 For any spotify links, embed an iframe of the track
+
+
+
 Would you like me to start implementing any specific part of this structure, or would you prefer to see a working example of one of these approaches?
 
 
