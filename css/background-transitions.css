@@ -1,0 +1,79 @@
+/* Background Transition Enhancement for Project IO MVP */
+
+/* Smooth body background transitions */
+body {
+    transition: background-image 1s ease-in-out;
+}
+
+/* Page-specific background classes */
+.bg-page-1 {
+    background-image: url('../assets/images/mountain-vista.jpg') !important;
+}
+
+.bg-page-2 {
+    background-image: url('../assets/images/tranquil-lake.jpg') !important;
+}
+
+.bg-page-3 {
+    background-image: url('../assets/images/forest-path.jpg') !important;
+}
+
+.bg-page-4 {
+    background-image: url('../assets/images/ocean-waves.jpg') !important;
+}
+
+.bg-page-5 {
+    background-image: url('../assets/images/desert-sunset.jpg') !important;
+}
+
+/* Alternative: Use online images if you don't have local ones */
+.bg-online-1 {
+    background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop') !important;
+}
+
+.bg-online-2 {
+    background-image: url('https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=1920&h=1080&fit=crop') !important;
+}
+
+.bg-online-3 {
+    background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=1080&fit=crop') !important;
+}
+
+.bg-online-4 {
+    background-image: url('https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1920&h=1080&fit=crop') !important;
+}
+
+.bg-online-5 {
+    background-image: url('https://images.unsplash.com/photo-1500964757637-c85e8a162699?w=1920&h=1080&fit=crop') !important;
+}
+
+/* Enhanced overlay for better text readability during transitions */
+body::before {
+    transition: background-color 0.5s ease-in-out;
+}
+
+/* Page-specific overlay adjustments */
+.bg-page-1::before,
+.bg-online-1::before {
+    background: rgba(0, 0, 0, 0.3); /* Lighter overlay for mountain scenes */
+}
+
+.bg-page-2::before,
+.bg-online-2::before {
+    background: rgba(0, 0, 0, 0.4); /* Medium overlay for lake scenes */
+}
+
+.bg-page-3::before,
+.bg-online-3::before {
+    background: rgba(0, 0, 0, 0.5); /* Darker overlay for forest scenes */
+}
+
+.bg-page-4::before,
+.bg-online-4::before {
+    background: rgba(0, 0, 0, 0.3); /* Lighter overlay for ocean scenes */
+}
+
+.bg-page-5::before,
+.bg-online-5::before {
+    background: rgba(0, 0, 0, 0.2); /* Very light overlay for sunset scenes */
+}

@@ -1,0 +1,50 @@
+/* Ultra-Simple Background Transitions - Pure CSS */
+
+/* Base transition for all background changes */
+body {
+    transition: all 0.8s ease-in-out;
+}
+
+/* Page-specific background gradients (lightweight alternative to images) */
+.gradient-bg-1 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.gradient-bg-2 {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+}
+
+.gradient-bg-3 {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+}
+
+.gradient-bg-4 {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+}
+
+.gradient-bg-5 {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+}
+
+/* Auto-cycling backgrounds (optional) */
+.page-section:nth-child(1) ~ body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.page-section:nth-child(2) ~ body {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+/* Simple JavaScript-free implementation */
+.bg-cycle {
+    animation: backgroundCycle 15s infinite;
+}
+
+@keyframes backgroundCycle {
+    0% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    20% { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    40% { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    60% { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    80% { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+}
