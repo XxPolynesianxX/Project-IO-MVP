@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player Debug</title>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        /* Test styles for Spotify Nav */
+        #spotify-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 340px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 20px 20px 0 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1002;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .spotify-nav-hidden {
+            transform: translateX(-50%) translateY(100%);
+        }
+        
+        .spotify-nav-visible {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .spotify-nav-content {
+            padding: 20px;
+        }
+        
+        .spotify-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        #close-spotify {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+        
+        #music-trigger {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .debug-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Music Player Debug Test</h1>
+    <p>Click the music button (🎵) to open the player, then click the × to close it.</p>
+    
+    <div class="debug-info">
+        <div>Player State: <span id="player-state">hidden</span></div>
+        <div>Classes: <span id="player-classes">spotify-nav-hidden</span></div>
+    </div>
+    
+    <!-- Music Trigger Button -->
+    <div id="music-trigger" title="Open Music Player">
+        <span class="music-icon">🎵</span>
+    </div>
+    
+    <!-- Spotify Navigation Bar -->
+    <div id="spotify-nav" class="spotify-nav-hidden">
+        <div class="spotify-nav-content">
+            <div class="spotify-nav-header">
+                <h3>Now Playing</h3>
+                <button id="close-spotify" title="Close Music Player">×</button>
+            </div>
+            <iframe 
+                src="https://open.spotify.com/embed/track/478DSISmw3bYshzudxxLNd?utm_source=generator" 
+                width="300" 
+                height="152" 
+                frameBorder="0" 
+                allowfullscreen="" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy"
+                style="border-radius: 12px;">
+            </iframe>
+        </div>
+    </div>
+    
+    <script>
+        const musicTrigger = document.getElementById('music-trigger');
+        const spotifyNav = document.getElementById('spotify-nav');
+        const closeSpotify = document.getElementById('close-spotify');
+        const playerState = document.getElementById('player-state');
+        const playerClasses = document.getElementById('player-classes');
+        
+        function updateDebugInfo() {
+            const isVisible = spotifyNav.classList.contains('spotify-nav-visible');
+            playerState.textContent = isVisible ? 'visible' : 'hidden';
+            playerClasses.textContent = spotifyNav.className;
+            console.log('Player state:', isVisible ? 'visible' : 'hidden');
+            console.log('Classes:', spotifyNav.className);
+        }
+        
+        function toggleMusicPlayer() {
+            console.log('Toggle function called');
+            const isVisible = spotifyNav.classList.contains('spotify-nav-visible');
+            
+            if (isVisible) {
+                console.log('Hiding player');
+                spotifyNav.classList.remove('spotify-nav-visible');
+                spotifyNav.classList.add('spotify-nav-hidden');
+            } else {
+                console.log('Showing player');
+                spotifyNav.classList.remove('spotify-nav-hidden');
+                spotifyNav.classList.add('spotify-nav-visible');
+            }
+            
+            updateDebugInfo();
+        }
+        
+        // Event listeners
+        musicTrigger.addEventListener('click', (e) => {
+            console.log('Music trigger clicked');
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMusicPlayer();
+        });
+        
+        closeSpotify.addEventListener('click', (e) => {
+            console.log('Close button clicked');
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMusicPlayer();
+        });
+        
+        // Initialize debug info
+        updateDebugInfo();
+        
+        // Test if iframe is interfering
+        const iframe = spotifyNav.querySelector('iframe');
+        iframe.addEventListener('load', () => {
+            console.log('Spotify iframe loaded');
+        });
+        
+        // Click outside to close
+        document.addEventListener('click', (e) => {
+            const isVisible = spotifyNav.classList.contains('spotify-nav-visible');
+            const clickedInsidePlayer = spotifyNav.contains(e.target);
+            const clickedTrigger = musicTrigger.contains(e.target);
+            
+            if (isVisible && !clickedInsidePlayer && !clickedTrigger) {
+                console.log('Clicked outside, closing player');
+                toggleMusicPlayer();
+            }
+        });
+    </script>
+</body>
+</html>

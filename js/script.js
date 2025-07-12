@@ -19,6 +19,7 @@ class SimpleScroller {
         this.setupScrollDetection();
         this.setupKeyboardNavigation();
         this.setupTouchGestures();
+        this.setupMusicPlayer(); // Add music player setup
         this.updateProgress();
         
         // Hide touch hint after 5 seconds
@@ -91,6 +92,93 @@ class SimpleScroller {
                 this.prevPage();
             }
         }
+    }
+    
+    setupMusicPlayer() {
+        const musicTrigger = document.getElementById('music-trigger');
+        const spotifyNav = document.getElementById('spotify-nav');
+        const closeSpotify = document.getElementById('close-spotify');
+        
+        if (!musicTrigger || !spotifyNav || !closeSpotify) {
+            console.warn('Music player elements not found');
+            return;
+        }
+        
+        // Enhanced toggle function with debugging and force reflow
+        const toggleMusicPlayer = (source = 'unknown') => {
+            console.log(`🎵 Toggle called from: ${source}`);
+            const isVisible = spotifyNav.classList.contains('spotify-nav-visible');
+            console.log(`🎵 Current state: ${isVisible ? 'visible' : 'hidden'}`);
+            
+            if (isVisible) {
+                // Hide the player
+                spotifyNav.classList.remove('spotify-nav-visible');
+                spotifyNav.classList.add('spotify-nav-hidden');
+                console.log('🎵 Player hidden');
+            } else {
+                // Show the player
+                spotifyNav.classList.remove('spotify-nav-hidden');
+                spotifyNav.classList.add('spotify-nav-visible');
+                console.log('🎵 Player shown');
+            }
+            
+            // Force a reflow to ensure CSS changes are applied
+            spotifyNav.offsetHeight;
+            console.log(`🎵 Classes after toggle: ${spotifyNav.className}`);
+        };
+        
+        // Event listeners with improved event handling
+        musicTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMusicPlayer('music-trigger');
+        });
+        
+        closeSpotify.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMusicPlayer('close-button');
+        });
+        
+        // Add a backup event listener with mousedown for better responsiveness
+        closeSpotify.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('🎵 Close button mousedown triggered');
+        });
+        
+        // Touch events for mobile
+        closeSpotify.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMusicPlayer('close-button-touch');
+        });
+        
+        // Click outside to close (optional)
+        document.addEventListener('click', (e) => {
+            const isVisible = spotifyNav.classList.contains('spotify-nav-visible');
+            const clickedInsidePlayer = spotifyNav.contains(e.target);
+            const clickedTrigger = musicTrigger.contains(e.target);
+            
+            if (isVisible && !clickedInsidePlayer && !clickedTrigger) {
+                toggleMusicPlayer();
+            }
+        });
+        
+        // Prevent scrolling when music player is visible
+        spotifyNav.addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+        });
+        
+        spotifyNav.addEventListener('touchmove', (e) => {
+            e.stopPropagation();
+        });
+        
+        spotifyNav.addEventListener('touchend', (e) => {
+            e.stopPropagation();
+        });
+        
+        console.log('🎵 Music player initialized!');
     }
     
     setupScrollDetection() {
@@ -211,6 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🚀 Project IO MVP initialized!');
     console.log('📱 Use arrow keys, spacebar, or scroll to navigate');
     console.log('🔄 Current page:', window.scroller.getCurrentPage());
+    console.log('🎵 Music player ready! Click the music icon to open.');
     
     // Add keyboard shortcut info
     console.log('⌨️  Keyboard shortcuts:');
@@ -218,6 +307,12 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('   ↑ Arrow Up: Previous page');
     console.log('   Home: Go to first page');
     console.log('   End: Go to last page');
+    
+    // Add music player API info
+    console.log('🎵 Music Player API:');
+    console.log('   ProjectIO.toggleMusicPlayer() - Toggle music player');
+    console.log('   ProjectIO.showMusicPlayer() - Show music player');
+    console.log('   ProjectIO.hideMusicPlayer() - Hide music player');
 });
 
 // Add some helpful utility functions to window object
@@ -226,7 +321,27 @@ window.ProjectIO = {
     getCurrentPage: () => window.scroller?.getCurrentPage(),
     setTotalPages: (count) => window.scroller?.setTotalPages(count),
     nextPage: () => window.scroller?.nextPage(),
-    prevPage: () => window.scroller?.prevPage()
+    prevPage: () => window.scroller?.prevPage(),
+    toggleMusicPlayer: () => {
+        const musicTrigger = document.getElementById('music-trigger');
+        if (musicTrigger) {
+            musicTrigger.click();
+        }
+    },
+    showMusicPlayer: () => {
+        const spotifyNav = document.getElementById('spotify-nav');
+        if (spotifyNav && !spotifyNav.classList.contains('spotify-nav-visible')) {
+            spotifyNav.classList.remove('spotify-nav-hidden');
+            spotifyNav.classList.add('spotify-nav-visible');
+        }
+    },
+    hideMusicPlayer: () => {
+        const spotifyNav = document.getElementById('spotify-nav');
+        if (spotifyNav && spotifyNav.classList.contains('spotify-nav-visible')) {
+            spotifyNav.classList.remove('spotify-nav-visible');
+            spotifyNav.classList.add('spotify-nav-hidden');
+        }
+    }
 };
 
 // Handle page visibility changes (pause/resume when tab becomes active/inactive)

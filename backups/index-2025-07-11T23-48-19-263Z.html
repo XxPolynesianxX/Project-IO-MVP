@@ -41,12 +41,6 @@
                 <div class="page-content">
                     <h1>🔗 Quick Links</h1>
 <p>Navigate to your favorite sites with these quick access buttons:</p>
-<div style="margin: 20px 0; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; text-align: center;">
-    <a href="Sub_Pages/mobile_friendly_bhutan_paper.html" 
-       style="color: white; text-decoration: none; font-size: 18px; font-weight: bold; display: inline-block; padding: 10px 20px; background: rgba(255,255,255,0.2); border-radius: 5px; transition: all 0.3s ease;">
-        📖 The Transition from Early to Modern Happiness in Bhutan
-    </a>
-</div>
                 </div>
             </div>
             <div class="page-section" id="page-3">
@@ -138,8 +132,25 @@
             <span class="music-icon">🎵</span>
         </div>
         
-        <!-- Hidden Spotify Navigation Bar. Removed from site, Couldn't implement due to technical limitations -->
-
+        <!-- Hidden Spotify Navigation Bar -->
+        <div id="spotify-nav" class="spotify-nav-hidden">
+            <div class="spotify-nav-content">
+                <div class="spotify-nav-header">
+                    <h3>Now Playing</h3>
+                    <button id="close-spotify" title="Close Music Player">×</button>
+                </div>
+                <iframe 
+                    src="https://open.spotify.com/embed/track/478DSISmw3bYshzudxxLNd?utm_source=generator" 
+                    width="300" 
+                    height="152" 
+                    frameBorder="0" 
+                    allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy"
+                    style="border-radius: 12px;">
+                </iframe>
+            </div>
+        </div>
     </div>
     
     <script src="js/script.js"></script>
