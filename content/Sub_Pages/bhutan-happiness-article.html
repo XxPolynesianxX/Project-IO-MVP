@@ -14,9 +14,29 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
-            color: #292929;
-            background-color: #fff;
+            color: #fff;
+            background: #000;
+            background-image: url('../../assets/images/palace-bhutan-architecture-country.jpg');
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             font-size: 18px;
+            min-height: 100vh;
+            transition: background-image 1s ease-in-out;
+        }
+
+        /* Background overlay to ensure readability */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+            pointer-events: none;
         }
 
         .article-container {
@@ -25,6 +45,15 @@
             padding: 0 20px;
             padding-top: 40px;
             padding-bottom: 80px;
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .article-header {
@@ -37,20 +66,23 @@
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 20px;
-            color: #000;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .article-subtitle {
             font-size: 1.25rem;
-            color: #6B6B6B;
+            color: #E8E8E8;
             font-weight: 400;
             margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .article-meta {
             font-size: 0.9rem;
-            color: #8B8B8B;
+            color: #C8C8C8;
             margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .author-info {
@@ -65,24 +97,30 @@
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            background-color: #E1E5E9;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            color: #666;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .author-details h3 {
             font-size: 1rem;
             font-weight: 600;
             margin-bottom: 2px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .author-details p {
             font-size: 0.875rem;
-            color: #6B6B6B;
+            color: #E8E8E8;
             margin: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         h1 {
@@ -90,7 +128,8 @@
             font-weight: 600;
             line-height: 1.3;
             margin: 40px 0 20px 0;
-            color: #000;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         h2 {
@@ -98,7 +137,8 @@
             font-weight: 600;
             line-height: 1.3;
             margin: 35px 0 15px 0;
-            color: #000;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         h3 {
@@ -106,7 +146,8 @@
             font-weight: 600;
             line-height: 1.3;
             margin: 30px 0 15px 0;
-            color: #000;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         p {
@@ -117,10 +158,14 @@
         blockquote {
             margin: 30px 0;
             padding: 20px 30px;
-            border-left: 4px solid #E1E5E9;
-            background-color: #F9F9F9;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             font-style: italic;
-            color: #555;
+            color: #E8E8E8;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         blockquote p {
@@ -128,9 +173,13 @@
         }
 
         .highlight {
-            background-color: #FFFACD;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(3px);
             padding: 2px 4px;
             border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         ul, ol {
@@ -145,17 +194,22 @@
 
         .section-divider {
             height: 1px;
-            background-color: #E1E5E9;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
             margin: 50px 0;
             width: 100px;
             margin-left: auto;
             margin-right: auto;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
 
         .notes-section {
             margin-top: 60px;
             padding-top: 30px;
-            border-top: 1px solid #E1E5E9;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 30px;
+            backdrop-filter: blur(5px);
         }
 
         .notes-section h2 {
@@ -167,7 +221,8 @@
             font-size: 0.875rem;
             line-height: 1.6;
             margin-bottom: 12px;
-            color: #666;
+            color: #D8D8D8;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .note-number {
@@ -177,10 +232,17 @@
 
         /* Mobile optimizations */
         @media (max-width: 768px) {
+            body {
+                background-attachment: scroll; /* Fixed attachment causes issues on mobile */
+                min-height: 100vh;
+                min-height: -webkit-fill-available;
+            }
+            
             .article-container {
                 padding: 0 16px;
                 padding-top: 20px;
                 padding-bottom: 60px;
+                margin: 10px;
             }
 
             .article-title {
