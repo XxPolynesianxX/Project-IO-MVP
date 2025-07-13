@@ -26,6 +26,10 @@ body {
     background-image: url('../assets/images/desert-sunset.jpg') !important;
 }
 
+.bg-page-Bhutan {
+    background-image: url('../assets/images/palace-bhutan-architecture-country.jpg') !important;
+}
+
 /* Alternative: Use online images if you don't have local ones */
 .bg-online-1 {
     background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop') !important;
