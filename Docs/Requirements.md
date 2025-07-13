@@ -12,4 +12,4 @@ https://claude.ai/share/438c6ef3-ecdf-41d2-95ea-d2e21e02f00d
 
 
 **DEFINITIONS**
-1. File Pattern - refers to the sequential ordering of pages (e.g. page1, page2, page3, etc) contained within C:\DEV\Project IO MVP\content
+1. File Pattern - refers to the sequential ordering of pages (e.g. page1, page2, page3, etc) contained within C:\DEV\Project IO MVP\contentno
