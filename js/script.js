@@ -6,11 +6,7 @@
 class SimpleScroller {
     constructor() {
         this.currentPage = 1;
-<<<<<<< HEAD
         this.totalPages = 4; // Update this when you add your 300 pages
-=======
-        this.totalPages = 5; // Update this when you add your 300 pages
->>>>>>> 9b352b907b8f43fbd68b062fee82ef7971c203d5
         this.container = document.getElementById('content-container');
         this.isScrolling = false;
         this.scrollTimeout = null;
