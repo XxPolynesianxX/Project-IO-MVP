@@ -205,6 +205,37 @@ body::before {
     transform: none;
 }
 
+/* Music Button Styles */
+#music-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #fff;
+    font-size: 1.3rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    margin-bottom: 5px;
+}
+
+#music-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+#music-btn.playing {
+    background: rgba(76, 175, 80, 0.6);
+    animation: music-pulse 2s ease-in-out infinite;
+    color: #fff;
+}
+
+@keyframes music-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
 #page-counter {
     font-size: 0.9rem;
     color: #fff;
@@ -310,8 +341,14 @@ body::before {
         font-size: 1.3rem;
     }
     
+    #music-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+    
     #touch-hint {
-        bottom: 100px; /* Moved up to avoid collision with music trigger */
+        bottom: 20px;
         left: 20px;
         font-size: 0.7rem;
         padding: 8px 12px;
@@ -363,6 +400,12 @@ body::before {
         width: 40px;
         height: 40px;
         font-size: 1.2rem;
+    }
+    
+    #music-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
     }
     
     #touch-hint {
@@ -457,230 +500,4 @@ button:focus {
         height: 232px;
         margin: 10px 0;
     }
-}
-
-/* ==================== MUSIC PLAYER COMPONENTS ==================== */
-
-/* Music Trigger Button */
-#music-trigger {
-    position: fixed;
-    bottom: 30px;
-    left: 30px;
-    width: 60px;
-    height: 60px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 1001;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-#music-trigger:hover {
-    background: rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
-}
-
-#music-trigger:active {
-    transform: scale(0.95);
-}
-
-.music-icon {
-    font-size: 1.5rem;
-    color: #fff;
-    animation: music-pulse 2s ease-in-out infinite;
-}
-
-@keyframes music-pulse {
-    0%, 100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.7;
-        transform: scale(1.05);
-    }
-}
-
-/* Spotify Navigation Bar */
-#spotify-nav {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 340px;
-    max-width: calc(100vw - 40px);
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(30, 30, 30, 0.9));
-    border-radius: 20px 20px 0 0;
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: none;
-    z-index: 1002;
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Hidden state */
-.spotify-nav-hidden {
-    transform: translateX(-50%) translateY(100%);
-}
-
-/* Visible state */
-.spotify-nav-visible {
-    transform: translateX(-50%) translateY(0);
-}
-
-.spotify-nav-content {
-    padding: 20px;
-    padding-bottom: 25px;
-}
-
-.spotify-nav-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.spotify-nav-header h3 {
-    color: #fff;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0;
-    opacity: 0.9;
-}
-
-#close-spotify {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.5rem;
-    cursor: pointer;
-    opacity: 0.7;
-    transition: all 0.2s ease;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-}
-
-#close-spotify:hover {
-    opacity: 1;
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.1);
-}
-
-#close-spotify:active {
-    transform: scale(0.9);
-}
-
-/* Spotify iframe styling within nav */
-#spotify-nav iframe {
-    width: 100%;
-    max-width: 300px;
-    height: 152px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    display: block;
-    margin: 0 auto;
-}
-
-/* Mobile Responsive for Music Player */
-@media (max-width: 768px) {
-    #music-trigger {
-        bottom: 20px;
-        left: 20px;
-        width: 55px;
-        height: 55px;
-    }
-    
-    .music-icon {
-        font-size: 1.3rem;
-    }
-    
-    #spotify-nav {
-        width: 320px;
-        max-width: calc(100vw - 20px);
-    }
-    
-    .spotify-nav-content {
-        padding: 15px;
-        padding-bottom: 20px;
-    }
-    
-    .spotify-nav-header h3 {
-        font-size: 1rem;
-    }
-    
-    #spotify-nav iframe {
-        height: 152px;
-    }
-}
-
-@media (max-width: 480px) {
-    #music-trigger {
-        bottom: 15px;
-        left: 15px;
-        width: 50px;
-        height: 50px;
-    }
-    
-    .music-icon {
-        font-size: 1.2rem;
-    }
-    
-    #spotify-nav {
-        width: 300px;
-        max-width: calc(100vw - 10px);
-    }
-    
-    .spotify-nav-content {
-        padding: 12px;
-        padding-bottom: 15px;
-    }
-    
-    #spotify-nav iframe {
-        height: 152px;
-        max-width: 280px;
-    }
-}
-
-/* Focus states for accessibility */
-#music-trigger:focus {
-    outline: 2px solid #4ecdc4;
-    outline-offset: 2px;
-}
-
-#close-spotify:focus {
-    outline: 2px solid #4ecdc4;
-    outline-offset: 2px;
-}
-
-/* Ensure close button is always clickable and above iframe */
-#close-spotify {
-    position: relative;
-    z-index: 10;
-    pointer-events: auto;
-}
-
-/* Ensure iframe doesn't interfere with close button */
-#spotify-nav iframe {
-    pointer-events: auto;
-    position: relative;
-    z-index: 1;
-}
-
-/* Force hardware acceleration for smoother transitions */
-#spotify-nav {
-    will-change: transform;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
 }

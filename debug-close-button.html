@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player Close Button Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        /* Music Player Styles */
+        #music-trigger {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        #spotify-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 340px;
+            max-width: calc(100vw - 40px);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(30, 30, 30, 0.9));
+            border-radius: 20px 20px 0 0;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: none;
+            z-index: 1002;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .spotify-nav-hidden {
+            transform: translateX(-50%) translateY(100%);
+        }
+        
+        .spotify-nav-visible {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .spotify-nav-content {
+            padding: 20px;
+            padding-bottom: 25px;
+        }
+        
+        .spotify-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .spotify-nav-header h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        #close-spotify {
+            background: rgba(255, 0, 0, 0.2); /* Red tint for debugging */
+            border: 2px solid red; /* Red border for debugging */
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 1;
+            transition: all 0.2s ease;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: relative;
+            z-index: 9999; /* Very high z-index */
+            pointer-events: auto; /* Ensure it's clickable */
+        }
+        
+        #close-spotify:hover {
+            background: rgba(255, 0, 0, 0.4);
+            transform: scale(1.1);
+        }
+        
+        .debug-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            max-width: 300px;
+            z-index: 9999;
+        }
+        
+        .music-icon {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-info">
+        <h4>Debug Info:</h4>
+        <p>Player Status: <span id="player-status">Hidden</span></p>
+        <p>Close Button Events: <span id="event-count">0</span></p>
+        <p>Last Event: <span id="last-event">None</span></p>
+        <p>Classes: <span id="current-classes">-</span></p>
+    </div>
+    
+    <h1>Music Player Close Button Debug</h1>
+    <p>Click the music button (🎵) to open the player, then try to close it with the ✕ button.</p>
+    <p>The close button has a red border/background for debugging visibility.</p>
+    
+    <!-- Music Trigger Button -->
+    <div id="music-trigger" title="Open Music Player">
+        <span class="music-icon">🎵</span>
+    </div>
+    
+    <!-- Music Player Panel -->
+    <div id="spotify-nav" class="spotify-nav-hidden">
+        <div class="spotify-nav-content">
+            <div class="spotify-nav-header">
+                <h3>🎵 Now Playing</h3>
+                <button id="close-spotify" title="Close Music Player">✕</button>
+            </div>
+            <audio id="music-player" controls style="width: 100%; border-radius: 8px;">
+                <source src="assets/media/Sweet Release.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        let eventCount = 0;
+        
+        function updateDebugInfo() {
+            const playerStatus = document.getElementById('player-status');
+            const eventCountEl = document.getElementById('event-count');
+            const currentClassesEl = document.getElementById('current-classes');
+            const musicNav = document.getElementById('spotify-nav');
+            
+            const isVisible = musicNav.classList.contains('spotify-nav-visible');
+            playerStatus.textContent = isVisible ? 'Visible' : 'Hidden';
+            eventCountEl.textContent = eventCount;
+            currentClassesEl.textContent = musicNav.className;
+        }
+        
+        function logEvent(eventType, source) {
+            eventCount++;
+            const lastEventEl = document.getElementById('last-event');
+            lastEventEl.textContent = `${eventType} from ${source}`;
+            console.log(`🎵 Event: ${eventType} from ${source} (count: ${eventCount})`);
+            updateDebugInfo();
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            const musicTrigger = document.getElementById('music-trigger');
+            const musicNav = document.getElementById('spotify-nav');
+            const closeMusicPlayer = document.getElementById('close-spotify');
+            const audioElement = document.getElementById('music-player');
+            
+            updateDebugInfo();
+            
+            // Enhanced toggle function with debugging
+            const toggleMusicPlayer = (source = 'unknown') => {
+                logEvent('toggle', source);
+                const isVisible = musicNav.classList.contains('spotify-nav-visible');
+                console.log(`🎵 Current state: ${isVisible ? 'visible' : 'hidden'}`);
+                
+                if (isVisible) {
+                    // Hide the player
+                    musicNav.classList.remove('spotify-nav-visible');
+                    musicNav.classList.add('spotify-nav-hidden');
+                    if (audioElement && !audioElement.paused) {
+                        audioElement.pause();
+                    }
+                    console.log('🎵 Player hidden');
+                } else {
+                    // Show the player
+                    musicNav.classList.remove('spotify-nav-hidden');
+                    musicNav.classList.add('spotify-nav-visible');
+                    console.log('🎵 Player shown');
+                }
+                
+                // Force a reflow
+                musicNav.offsetHeight;
+                updateDebugInfo();
+            };
+            
+            // Music trigger button
+            musicTrigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleMusicPlayer('music-trigger');
+            });
+            
+            // Close button - multiple event types for debugging
+            closeMusicPlayer.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('🎵 Close button CLICK event fired');
+                logEvent('click', 'close-button');
+                toggleMusicPlayer('close-button-click');
+            });
+            
+            closeMusicPlayer.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('🎵 Close button MOUSEDOWN event fired');
+                logEvent('mousedown', 'close-button');
+            });
+            
+            closeMusicPlayer.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('🎵 Close button TOUCHSTART event fired');
+                logEvent('touchstart', 'close-button');
+                toggleMusicPlayer('close-button-touch');
+            });
+            
+            // Test if the close button is properly positioned and clickable
+            closeMusicPlayer.addEventListener('mouseenter', () => {
+                console.log('🎵 Mouse entered close button area');
+                closeMusicPlayer.style.background = 'rgba(255, 0, 0, 0.6)';
+            });
+            
+            closeMusicPlayer.addEventListener('mouseleave', () => {
+                console.log('🎵 Mouse left close button area');
+                closeMusicPlayer.style.background = 'rgba(255, 0, 0, 0.2)';
+            });
+            
+            // Debug: Log all events on the close button
+            ['click', 'mousedown', 'mouseup', 'touchstart', 'touchend', 'touchcancel'].forEach(eventType => {
+                closeMusicPlayer.addEventListener(eventType, (e) => {
+                    console.log(`🎵 Close button event: ${eventType}`, e);
+                });
+            });
+            
+            console.log('🎵 Debug script initialized');
+            console.log('🎵 Close button element:', closeMusicPlayer);
+            console.log('🎵 Close button styles:', window.getComputedStyle(closeMusicPlayer));
+        });
+    </script>
+</body>
+</html>

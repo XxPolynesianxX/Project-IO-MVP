@@ -6,7 +6,7 @@
 class SimpleScroller {
     constructor() {
         this.currentPage = 1;
-        this.totalPages = 5; // Update this when you add your 300 pages
+        this.totalPages = 4; // Update this when you add your 300 pages
         this.container = document.getElementById('content-container');
         this.isScrolling = false;
         this.scrollTimeout = null;
@@ -19,7 +19,6 @@ class SimpleScroller {
         this.setupScrollDetection();
         this.setupKeyboardNavigation();
         this.setupTouchGestures();
-        this.setupMusicPlayer(); // Add music player setup
         this.updateProgress();
         
         // Hide touch hint after 5 seconds
@@ -92,93 +91,6 @@ class SimpleScroller {
                 this.prevPage();
             }
         }
-    }
-    
-    setupMusicPlayer() {
-        const musicTrigger = document.getElementById('music-trigger');
-        const spotifyNav = document.getElementById('spotify-nav');
-        const closeSpotify = document.getElementById('close-spotify');
-        
-        if (!musicTrigger || !spotifyNav || !closeSpotify) {
-            console.warn('Music player elements not found');
-            return;
-        }
-        
-        // Enhanced toggle function with debugging and force reflow
-        const toggleMusicPlayer = (source = 'unknown') => {
-            console.log(`🎵 Toggle called from: ${source}`);
-            const isVisible = spotifyNav.classList.contains('spotify-nav-visible');
-            console.log(`🎵 Current state: ${isVisible ? 'visible' : 'hidden'}`);
-            
-            if (isVisible) {
-                // Hide the player
-                spotifyNav.classList.remove('spotify-nav-visible');
-                spotifyNav.classList.add('spotify-nav-hidden');
-                console.log('🎵 Player hidden');
-            } else {
-                // Show the player
-                spotifyNav.classList.remove('spotify-nav-hidden');
-                spotifyNav.classList.add('spotify-nav-visible');
-                console.log('🎵 Player shown');
-            }
-            
-            // Force a reflow to ensure CSS changes are applied
-            spotifyNav.offsetHeight;
-            console.log(`🎵 Classes after toggle: ${spotifyNav.className}`);
-        };
-        
-        // Event listeners with improved event handling
-        musicTrigger.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleMusicPlayer('music-trigger');
-        });
-        
-        closeSpotify.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleMusicPlayer('close-button');
-        });
-        
-        // Add a backup event listener with mousedown for better responsiveness
-        closeSpotify.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('🎵 Close button mousedown triggered');
-        });
-        
-        // Touch events for mobile
-        closeSpotify.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleMusicPlayer('close-button-touch');
-        });
-        
-        // Click outside to close (optional)
-        document.addEventListener('click', (e) => {
-            const isVisible = spotifyNav.classList.contains('spotify-nav-visible');
-            const clickedInsidePlayer = spotifyNav.contains(e.target);
-            const clickedTrigger = musicTrigger.contains(e.target);
-            
-            if (isVisible && !clickedInsidePlayer && !clickedTrigger) {
-                toggleMusicPlayer();
-            }
-        });
-        
-        // Prevent scrolling when music player is visible
-        spotifyNav.addEventListener('touchstart', (e) => {
-            e.stopPropagation();
-        });
-        
-        spotifyNav.addEventListener('touchmove', (e) => {
-            e.stopPropagation();
-        });
-        
-        spotifyNav.addEventListener('touchend', (e) => {
-            e.stopPropagation();
-        });
-        
-        console.log('🎵 Music player initialized!');
     }
     
     setupScrollDetection() {
@@ -290,16 +202,113 @@ class SimpleScroller {
     }
 }
 
+/**
+ * Music Control Functionality
+ */
+class MusicController {
+    constructor() {
+        this.isPlaying = false;
+        this.audio = null;
+        this.musicBtn = null;
+        this.init();
+    }
+    
+    init() {
+        this.audio = document.getElementById('background-music');
+        this.musicBtn = document.getElementById('music-btn');
+        
+        if (this.musicBtn && this.audio) {
+            this.musicBtn.addEventListener('click', () => this.toggleMusic());
+            
+            // Handle audio events
+            this.audio.addEventListener('ended', () => this.onAudioEnded());
+            this.audio.addEventListener('error', (e) => this.onAudioError(e));
+            
+            console.log('🎵 Music controller initialized');
+        }
+    }
+    
+    toggleMusic() {
+        if (this.isPlaying) {
+            this.pauseMusic();
+        } else {
+            this.playMusic();
+        }
+    }
+    
+    playMusic() {
+        if (this.audio) {
+            this.audio.play().then(() => {
+                this.isPlaying = true;
+                this.updateButtonState();
+                console.log('🎵 Music started playing');
+            }).catch(error => {
+                console.log('❌ Audio play failed:', error);
+                // Handle autoplay restrictions - common in modern browsers
+                alert('Please interact with the page first to enable audio');
+            });
+        }
+    }
+    
+    pauseMusic() {
+        if (this.audio) {
+            this.audio.pause();
+            this.isPlaying = false;
+            this.updateButtonState();
+            console.log('⏸️ Music paused');
+        }
+    }
+    
+    updateButtonState() {
+        if (this.musicBtn) {
+            if (this.isPlaying) {
+                this.musicBtn.textContent = '⏸';
+                this.musicBtn.classList.add('playing');
+                this.musicBtn.title = 'Pause Music (⏸)';
+            } else {
+                this.musicBtn.textContent = '♪';
+                this.musicBtn.classList.remove('playing');
+                this.musicBtn.title = 'Play Music (♪)';
+            }
+        }
+    }
+    
+    onAudioEnded() {
+        // Audio will loop automatically due to 'loop' attribute
+        // This is just for logging
+        console.log('🔄 Music track ended (will loop)');
+    }
+    
+    onAudioError(error) {
+        console.error('❌ Audio error:', error);
+        this.isPlaying = false;
+        this.updateButtonState();
+    }
+    
+    // Public methods
+    isPlaying() {
+        return this.isPlaying;
+    }
+    
+    setVolume(volume) {
+        if (this.audio) {
+            this.audio.volume = Math.max(0, Math.min(1, volume));
+        }
+    }
+}
+
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Create global scroller instance
     window.scroller = new SimpleScroller();
     
+    // Create global music controller instance
+    window.musicController = new MusicController();
+    
     // Add some helpful console messages
     console.log('🚀 Project IO MVP initialized!');
     console.log('📱 Use arrow keys, spacebar, or scroll to navigate');
     console.log('🔄 Current page:', window.scroller.getCurrentPage());
-    console.log('🎵 Music player ready! Click the music icon to open.');
     
     // Add keyboard shortcut info
     console.log('⌨️  Keyboard shortcuts:');
@@ -307,47 +316,32 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('   ↑ Arrow Up: Previous page');
     console.log('   Home: Go to first page');
     console.log('   End: Go to last page');
-    
-    // Add music player API info
-    console.log('🎵 Music Player API:');
-    console.log('   ProjectIO.toggleMusicPlayer() - Toggle music player');
-    console.log('   ProjectIO.showMusicPlayer() - Show music player');
-    console.log('   ProjectIO.hideMusicPlayer() - Hide music player');
+    console.log('🎵 Click the music button (♪) to toggle background music');
 });
 
 // Add some helpful utility functions to window object
 window.ProjectIO = {
+    // Navigation functions
     goToPage: (page) => window.scroller?.goToPage(page),
     getCurrentPage: () => window.scroller?.getCurrentPage(),
     setTotalPages: (count) => window.scroller?.setTotalPages(count),
     nextPage: () => window.scroller?.nextPage(),
     prevPage: () => window.scroller?.prevPage(),
-    toggleMusicPlayer: () => {
-        const musicTrigger = document.getElementById('music-trigger');
-        if (musicTrigger) {
-            musicTrigger.click();
-        }
-    },
-    showMusicPlayer: () => {
-        const spotifyNav = document.getElementById('spotify-nav');
-        if (spotifyNav && !spotifyNav.classList.contains('spotify-nav-visible')) {
-            spotifyNav.classList.remove('spotify-nav-hidden');
-            spotifyNav.classList.add('spotify-nav-visible');
-        }
-    },
-    hideMusicPlayer: () => {
-        const spotifyNav = document.getElementById('spotify-nav');
-        if (spotifyNav && spotifyNav.classList.contains('spotify-nav-visible')) {
-            spotifyNav.classList.remove('spotify-nav-visible');
-            spotifyNav.classList.add('spotify-nav-hidden');
-        }
-    }
+    
+    // Music functions
+    toggleMusic: () => window.musicController?.toggleMusic(),
+    playMusic: () => window.musicController?.playMusic(),
+    pauseMusic: () => window.musicController?.pauseMusic(),
+    setVolume: (volume) => window.musicController?.setVolume(volume),
+    isMusicPlaying: () => window.musicController?.isPlaying
 };
 
 // Handle page visibility changes (pause/resume when tab becomes active/inactive)
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
         console.log('📱 App paused (tab not visible)');
+        // Optionally pause music when tab is hidden
+        // window.musicController?.pauseMusic();
     } else {
         console.log('📱 App resumed (tab visible)');
         // Refresh current page detection

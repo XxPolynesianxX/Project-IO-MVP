@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project IO MVP - Instagram-like Scrolling</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="page-counter">
+            <span id="currentPage">1</span> / <span id="totalPages">300</span>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button id="prevBtn" class="nav-btn" disabled>↑</button>
+        <button id="nextBtn" class="nav-btn">↓</button>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="container" id="container">
+        <!-- Pages will be dynamically loaded here -->
+        <div class="page active" data-page="1">
+            <div class="page-content">
+                <h1>Welcome to Project IO MVP</h1>
+                <p>This is an Instagram-like scrolling experience with 300 pages.</p>
+                <p>Use arrow keys, spacebar, or swipe gestures to navigate.</p>
+                <div class="scroll-hint">↓ Scroll down for more content ↓</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instructions Overlay -->
+    <div class="instructions" id="instructions">
+        <div class="instructions-content">
+            <h3>Navigation Instructions</h3>
+            <p><strong>Desktop:</strong> Arrow keys, Spacebar, Home/End</p>
+            <p><strong>Mobile:</strong> Swipe up/down</p>
+            <p><strong>Mouse:</strong> Click navigation buttons</p>
+            <button id="closeInstructions">Got it!</button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

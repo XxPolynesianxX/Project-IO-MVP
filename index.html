@@ -77,52 +77,19 @@
             </div>
             <div class="page-section" id="page-4">
                 <div class="page-content">
-                    <h1 class="page-title">Human Immersion</h1>
-<h2 class="page-subtitle">Crafting Interactive Experiences</h2>
-                </div>
-            </div>
-            <div class="page-section" id="page-5">
-                <div class="page-content">
-                    <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: 'Georgia', serif;">
-    <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border-left: 4px solid #666;">
-        <header style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #fff; margin: 0; font-size: 2.5em;">📖 Daily Journal</h1>
-            <p style="color: #ccc; font-size: 1.2em; margin: 10px 0;">Friday, July 11, 2025</p>
-            <div style="width: 50px; height: 2px; background: #666; margin: 10px auto;"></div>
-        </header>
-        <section style="margin-bottom: 35px;">
-            <h2 style="color: #ddd; font-size: 1.8em; margin-bottom: 15px; display: flex; align-items: center;">
-                <span style="margin-right: 10px;">✨</span>
-                Today's Highlights
-            </h2>
-            <div style="background: rgba(255, 255, 255, 0.08); padding: 20px; border-radius: 10px; border-left: 3px solid #888;">
-                <div style="display: flex; align-items: center; margin-bottom: 15px; font-size: 1.1em;">
-                    <span style="color: #bbb; margin-right: 15px; font-size: 1.5em;">🧊</span>
-                    <span>Mixue tea and ice cream</span>
-                </div>
-                <div style="display: flex; align-items: center; font-size: 1.1em;">
-                    <span style="color: #bbb; margin-right: 15px; font-size: 1.5em;">☀️</span>
-                    <span>Summer time ;)</span>
-                </div>
-            </div>
-        </section>
-        <section style="margin-bottom: 35px;">
-            <h2 style="color: #ddd; font-size: 1.8em; margin-bottom: 15px; display: flex; align-items: center;">
-                <span style="margin-right: 10px;">🎯</span>
-                Action Items
-            </h2>
-            <div style="background: rgba(255, 255, 255, 0.08); padding: 20px; border-radius: 10px; border-left: 3px solid #888;">
-                <div style="display: flex; align-items: center; font-size: 1.1em;">
-                    <span style="color: #bbb; margin-right: 15px; font-size: 1.5em;">🏝️</span>
-                    <span>Book Thailand Holiday</span>
-                </div>
-            </div>
-        </section>
-        <footer style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-            <p style="color: #888; font-style: italic; font-size: 0.9em;">
-                "Every day is a new page in the story of your life."
-            </p>
-        </footer>
+                    <div style="text-align: center; padding: 20px;">
+    <div style="font-size: clamp(8rem, 25vw, 16rem); line-height: 1; margin: 20px 0; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.3);">
+        <a href="https://photos.google.com/photo/AF1QipPKbEq_1pXTQWiLofST3iO9iJ89bQA6J98B_kF-" target="_blank" class="home-character">
+            仁
+        </a>
+    </div>
+    <div style="font-size: clamp(1.2rem, 4vw, 1.8rem); color: #ccc; margin: 10px 0; font-style: italic; letter-spacing: 0.2em;">
+        rén
+    </div>
+    <div style="background: rgba(255,255,255,0.1); padding: 30px 20px; border-radius: 15px; margin: 40px 0; max-width: 600px; margin-left: auto; margin-right: auto;">
+        <p style="font-size: clamp(1rem, 3vw, 1.3rem); line-height: 1.6; color: #fff; margin: 0; font-weight: 300;">
+            "Benevolence is the highest virtue. It is the compassion that connects all hearts and the kindness that makes us truly human."
+        </p>
     </div>
 </div>
                 </div>
@@ -131,8 +98,9 @@
         
         <!-- Navigation Controls -->
         <div id="navigation">
+            <button id="music-btn" title="Toggle Music (♪)">♪</button>
             <button id="prev-btn" title="Previous Page (↑)">↑</button>
-            <span id="page-counter">1 / 5</span>
+            <span id="page-counter">1 / 4</span>
             <button id="next-btn" title="Next Page (↓)">↓</button>
         </div>
         
@@ -141,27 +109,14 @@
             <p>Swipe up/down or scroll to navigate</p>
         </div>
         
-        <!-- Music Player Components -->
-        <!-- Music Trigger Button -->
-        <div id="music-trigger" title="Open Music Player">
-            <span class="music-icon">🎵</span>
-        </div>
-        
-        <!-- Music Player Panel -->
-        <div id="spotify-nav" class="spotify-nav-hidden">
-            <div class="spotify-nav-content">
-                <div class="spotify-nav-header">
-                    <h3>🎵 Now Playing</h3>
-                    <button id="close-spotify" title="Close Music Player">✕</button>
-                </div>
-                <audio id="music-player" controls style="width: 100%; border-radius: 8px;">
-                    <source src="assets/media/Sweet Release.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-        </div>
+
 
     </div>
+    
+    <!-- Hidden Audio Element -->
+    <audio id="background-music" preload="auto" loop>
+        <source src="assets/media/Sweet Release.mp3" type="audio/mpeg">
+    </audio>
     
     <script src="js/script.js"></script>
     <script src="js/background-transitions.js"></script>

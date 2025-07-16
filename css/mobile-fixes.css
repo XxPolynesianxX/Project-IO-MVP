@@ -156,18 +156,4 @@ img, iframe {
     height: auto;
 }
 
-/* Fix for Spotify embed on mobile */
-@media (max-width: 768px) {
-    .spotify-embed {
-        width: 100% !important;
-        height: 280px !important;
-        margin: 15px 0 !important;
-    }
-}
 
-@media (max-width: 480px) {
-    .spotify-embed {
-        height: 232px !important;
-        margin: 10px 0 !important;
-    }
-}
