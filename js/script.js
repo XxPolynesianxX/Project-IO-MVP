@@ -6,7 +6,7 @@
 class SimpleScroller {
     constructor() {
         this.currentPage = 1;
-        this.totalPages = 4; // Update this when you add your 300 pages
+        this.totalPages = 8; // Update this when you add your 300 pages
         this.container = document.getElementById('content-container');
         this.isScrolling = false;
         this.scrollTimeout = null;
@@ -20,6 +20,7 @@ class SimpleScroller {
         this.setupKeyboardNavigation();
         this.setupTouchGestures();
         this.updateProgress();
+        this.updateBackground(); // Initialize background on startup
         
         // Hide touch hint after 5 seconds
         setTimeout(() => {
@@ -119,6 +120,7 @@ class SimpleScroller {
             this.currentPage = clampedPage;
             this.updateProgress();
             this.updateNavigationButtons();
+            this.updateBackground();
         }
     }
     
@@ -152,6 +154,7 @@ class SimpleScroller {
         
         this.updateProgress();
         this.updateNavigationButtons();
+        this.updateBackground();
         
         // Reset scrolling flag after animation
         setTimeout(() => {
@@ -187,6 +190,32 @@ class SimpleScroller {
         if (nextBtn) {
             nextBtn.disabled = this.currentPage >= this.totalPages;
         }
+    }
+    
+    updateBackground() {
+        const body = document.body;
+        
+        // Remove all existing background classes
+        const classList = body.classList;
+        for (let i = classList.length - 1; i >= 0; i--) {
+            const className = classList[i];
+            if (className.startsWith('bg-page-') || className.startsWith('bg-online-')) {
+                classList.remove(className);
+            }
+        }
+        
+        // Add new background class for current page
+        const pageClass = `bg-page-${this.currentPage}`;
+        const onlineClass = `bg-online-${this.currentPage}`;
+        
+        // Try local image first, fallback to online
+        body.classList.add(pageClass);
+        
+        // If local image fails to load, use online fallback
+        // This is handled by CSS - online classes have same specificity
+        body.classList.add(onlineClass);
+        
+        console.log(`🎨 Background updated to page ${this.currentPage}`);
     }
     
     // Method to update total pages (call this after adding content)
