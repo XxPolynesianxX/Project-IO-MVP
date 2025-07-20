@@ -1,0 +1,150 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "totalPages": 8,
+    "lastUpdated": "2025-07-20T02:26:17.619Z",
+    "description": "Project IO MVP Content Database"
+  },
+  "pages": [
+    {
+      "id": 1,
+      "order": 1,
+      "createdAt": "2025-07-20T02:26:17.594Z",
+      "updatedAt": "2025-07-20T02:26:17.595Z",
+      "chineseCharacter": "家",
+      "pinyin": "jiā",
+      "quote": "Home is not a place, but a feeling. It's where love lives, memories are created, and hearts find peace.",
+      "backgroundImage": "../assets/images/mountain-vista.jpg",
+      "category": "family",
+      "tags": [
+        "chinese-character",
+        "single-character"
+      ],
+      "sourceFile": "page1.html",
+      "migrationNotes": "Migrated from HTML file"
+    },
+    {
+      "id": 2,
+      "order": 2,
+      "createdAt": "2025-07-20T02:26:17.601Z",
+      "updatedAt": "2025-07-20T02:26:17.601Z",
+      "chineseCharacter": "衡",
+      "pinyin": "héng",
+      "quote": "True wisdom lies in balance: 既来之,则安之 - accept what comes with grace, 乐天知命 - embrace life with optimism, yet 未雨绸缪 - prepare wisely for tomorrow. Live fully today while planting seeds for the future.",
+      "backgroundImage": "../assets/images/tranquil-lake.jpg",
+      "category": "balance",
+      "tags": [
+        "chinese-character",
+        "single-character",
+        "wisdom",
+        "life-advice"
+      ],
+      "sourceFile": "page2.html",
+      "migrationNotes": "Migrated from HTML file"
+    },
+    {
+      "id": 3,
+      "order": 3,
+      "createdAt": "2025-07-20T02:26:17.604Z",
+      "updatedAt": "2025-07-20T02:26:17.604Z",
+      "chineseCharacter": "仁",
+      "pinyin": "rén",
+      "quote": "Benevolence is the highest virtue. It is the compassion that connects all hearts and the kindness that makes us truly human.",
+      "backgroundImage": "../assets/images/ocean-waves.jpg",
+      "category": "virtue",
+      "tags": [
+        "chinese-character",
+        "single-character"
+      ],
+      "sourceFile": "page4.html",
+      "migrationNotes": "Migrated from HTML file"
+    },
+    {
+      "id": 4,
+      "order": 4,
+      "createdAt": "2025-07-20T02:26:17.608Z",
+      "updatedAt": "2025-07-20T02:26:17.608Z",
+      "chineseCharacter": "造",
+      "pinyin": "zào",
+      "quote": "There is no fate but what we make. We are the architects of our own destiny, forging our path through will and action.",
+      "backgroundImage": "../assets/images/forge-creation.jpg",
+      "category": "general",
+      "tags": [
+        "chinese-character",
+        "single-character"
+      ],
+      "sourceFile": "page5.html",
+      "migrationNotes": "Migrated from HTML file"
+    },
+    {
+      "id": 5,
+      "order": 5,
+      "createdAt": "2025-07-20T02:26:17.610Z",
+      "updatedAt": "2025-07-20T02:26:17.610Z",
+      "chineseCharacter": "飞",
+      "pinyin": "fēi",
+      "quote": "When pigs fly, dreams become reality. Sometimes the impossible is just waiting for the right moment to take flight.",
+      "backgroundImage": "../assets/images/flying-sky.jpg",
+      "category": "general",
+      "tags": [
+        "chinese-character",
+        "single-character"
+      ],
+      "sourceFile": "page6.html",
+      "migrationNotes": "Migrated from HTML file"
+    },
+    {
+      "id": 6,
+      "order": 6,
+      "createdAt": "2025-07-20T02:26:17.614Z",
+      "updatedAt": "2025-07-20T02:26:17.614Z",
+      "chineseCharacter": "蛻",
+      "pinyin": "tuì",
+      "quote": "True beauty was never hidden, only waiting for the right moment to reveal itself through the gentle art of becoming.",
+      "backgroundImage": "../assets/images/swan-transformation.jpg",
+      "category": "transformation",
+      "tags": [
+        "chinese-character",
+        "single-character"
+      ],
+      "sourceFile": "page7.html",
+      "migrationNotes": "Migrated from HTML file"
+    },
+    {
+      "id": 7,
+      "order": 7,
+      "createdAt": "2025-07-20T02:26:17.616Z",
+      "updatedAt": "2025-07-20T02:26:17.616Z",
+      "chineseCharacter": "恰",
+      "pinyin": "qià dào hǎo chù",
+      "quote": "In the dance between too much and too little, wisdom discovers the golden path of 'just right'.",
+      "backgroundImage": "https://images.unsplash.com/photo-1471958680802-1345a694ba6d?w=1920&h=1080&fit=crop",
+      "category": "wisdom",
+      "tags": [
+        "chinese-character",
+        "single-character",
+        "wisdom"
+      ],
+      "sourceFile": "page8.html",
+      "migrationNotes": "Migrated from HTML file"
+    },
+    {
+      "id": 8,
+      "order": 8,
+      "createdAt": "2025-07-20T02:26:17.619Z",
+      "updatedAt": "2025-07-20T02:26:17.619Z",
+      "chineseCharacter": "慈母巧手",
+      "pinyin": "cí mǔ qiǎo shǒu",
+      "quote": "In silicon wisdom and ancient heart she finds the way—where innovation meets devotion, every meal becomes a love letter written in steam and spice for the one who calls her home.",
+      "backgroundImage": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920&h=1080&fit=crop",
+      "category": "family",
+      "tags": [
+        "chinese-character",
+        "phrase",
+        "wisdom"
+      ],
+      "sourceFile": "page9.html",
+      "migrationNotes": "Migrated from HTML file"
+    }
+  ]
+}

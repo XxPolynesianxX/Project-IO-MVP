@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "totalPages": 1,
+    "lastUpdated": "2025-07-20T02:26:17.595Z",
+    "description": "Project IO MVP Content Database"
+  },
+  "pages": [
+    {
+      "id": 1,
+      "order": 1,
+      "createdAt": "2025-07-20T02:26:17.594Z",
+      "updatedAt": "2025-07-20T02:26:17.595Z",
+      "chineseCharacter": "家",
+      "pinyin": "jiā",
+      "quote": "Home is not a place, but a feeling. It's where love lives, memories are created, and hearts find peace.",
+      "backgroundImage": "../assets/images/mountain-vista.jpg",
+      "category": "family",
+      "tags": [
+        "chinese-character",
+        "single-character"
+      ],
+      "sourceFile": "page1.html",
+      "migrationNotes": "Migrated from HTML file"
+    }
+  ]
+}

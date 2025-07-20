@@ -1,1 +1,1 @@
-node build.js
+node build-json.js

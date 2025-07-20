@@ -1,0 +1,80 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "totalPages": 4,
+    "lastUpdated": "2025-07-20T02:26:17.608Z",
+    "description": "Project IO MVP Content Database"
+  },
+  "pages": [
+    {
+      "id": 1,
+      "order": 1,
+      "createdAt": "2025-07-20T02:26:17.594Z",
+      "updatedAt": "2025-07-20T02:26:17.595Z",
+      "chineseCharacter": "家",
+      "pinyin": "jiā",
+      "quote": "Home is not a place, but a feeling. It's where love lives, memories are created, and hearts find peace.",
+      "backgroundImage": "../assets/images/mountain-vista.jpg",
+      "category": "family",
+      "tags": [
+        "chinese-character",
+        "single-character"
+      ],
+      "sourceFile": "page1.html",
+      "migrationNotes": "Migrated from HTML file"
+    },
+    {
+      "id": 2,
+      "order": 2,
+      "createdAt": "2025-07-20T02:26:17.601Z",
+      "updatedAt": "2025-07-20T02:26:17.601Z",
+      "chineseCharacter": "衡",
+      "pinyin": "héng",
+      "quote": "True wisdom lies in balance: 既来之,则安之 - accept what comes with grace, 乐天知命 - embrace life with optimism, yet 未雨绸缪 - prepare wisely for tomorrow. Live fully today while planting seeds for the future.",
+      "backgroundImage": "../assets/images/tranquil-lake.jpg",
+      "category": "balance",
+      "tags": [
+        "chinese-character",
+        "single-character",
+        "wisdom",
+        "life-advice"
+      ],
+      "sourceFile": "page2.html",
+      "migrationNotes": "Migrated from HTML file"
+    },
+    {
+      "id": 3,
+      "order": 3,
+      "createdAt": "2025-07-20T02:26:17.604Z",
+      "updatedAt": "2025-07-20T02:26:17.604Z",
+      "chineseCharacter": "仁",
+      "pinyin": "rén",
+      "quote": "Benevolence is the highest virtue. It is the compassion that connects all hearts and the kindness that makes us truly human.",
+      "backgroundImage": "../assets/images/ocean-waves.jpg",
+      "category": "virtue",
+      "tags": [
+        "chinese-character",
+        "single-character"
+      ],
+      "sourceFile": "page4.html",
+      "migrationNotes": "Migrated from HTML file"
+    },
+    {
+      "id": 4,
+      "order": 4,
+      "createdAt": "2025-07-20T02:26:17.608Z",
+      "updatedAt": "2025-07-20T02:26:17.608Z",
+      "chineseCharacter": "造",
+      "pinyin": "zào",
+      "quote": "There is no fate but what we make. We are the architects of our own destiny, forging our path through will and action.",
+      "backgroundImage": "../assets/images/forge-creation.jpg",
+      "category": "general",
+      "tags": [
+        "chinese-character",
+        "single-character"
+      ],
+      "sourceFile": "page5.html",
+      "migrationNotes": "Migrated from HTML file"
+    }
+  ]
+}

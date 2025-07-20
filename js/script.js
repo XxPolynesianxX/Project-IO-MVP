@@ -6,7 +6,7 @@
 class SimpleScroller {
     constructor() {
         this.currentPage = 1;
-        this.totalPages = 8; // Update this when you add your 300 pages
+        this.totalPages = 11; // Will be automatically loaded from JSON database
         this.container = document.getElementById('content-container');
         this.isScrolling = false;
         this.scrollTimeout = null;
@@ -15,18 +15,72 @@ class SimpleScroller {
     }
     
     init() {
+        this.loadJSONDatabase();
         this.setupNavigation();
         this.setupScrollDetection();
         this.setupKeyboardNavigation();
         this.setupTouchGestures();
         this.updateProgress();
-        this.updateBackground(); // Initialize background on startup
+        // Background initialization handled by UnifiedBackgroundManager
         
         // Hide touch hint after 5 seconds
         setTimeout(() => {
             const hint = document.getElementById('touch-hint');
             if (hint) hint.style.display = 'none';
         }, 5000);
+    }
+    
+    async loadJSONDatabase() {
+        try {
+            console.log('📄 Loading JSON database for page data...');
+            
+            const response = await fetch('data/pages.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const jsonData = await response.json();
+            
+            // Update total pages from JSON
+            if (jsonData.metadata && jsonData.metadata.totalPages) {
+                this.totalPages = jsonData.metadata.totalPages;
+                console.log(`📊 Updated total pages to ${this.totalPages} from JSON`);
+            }
+            
+            // Load background mappings if available
+            if (jsonData.pages) {
+                this.loadBackgroundMappings(jsonData.pages);
+            }
+            
+            this.updateProgress();
+            this.updateNavigationButtons();
+            
+        } catch (error) {
+            console.log(`❌ Failed to load JSON database: ${error.message}`);
+            console.log('📄 Using embedded content as fallback');
+        }
+    }
+    
+    loadBackgroundMappings(pages) {
+        const mappings = {};
+        pages.forEach((page) => {
+            const pageNumber = page.order || page.id;
+            if (page.backgroundImage) {
+                mappings[pageNumber] = {
+                    primary: `bg-page-${pageNumber}`, // Legacy fallback
+                    fallback: `bg-online-${pageNumber}`, // Legacy fallback
+                    image: page.backgroundImage, // JSON-driven approach
+                    category: page.category,
+                    chineseCharacter: page.chineseCharacter,
+                    pinyin: page.pinyin
+                };
+            }
+        });
+        
+        if (Object.keys(mappings).length > 0 && window.unifiedBackgroundManager) {
+            window.unifiedBackgroundManager.addBackgroundMappings(mappings);
+            console.log(`🎨 Loaded ${Object.keys(mappings).length} JSON-driven background mappings`);
+        }
     }
     
     setupNavigation() {
@@ -120,7 +174,7 @@ class SimpleScroller {
             this.currentPage = clampedPage;
             this.updateProgress();
             this.updateNavigationButtons();
-            this.updateBackground();
+            this.updateBackgroundUnified();
         }
     }
     
@@ -154,7 +208,7 @@ class SimpleScroller {
         
         this.updateProgress();
         this.updateNavigationButtons();
-        this.updateBackground();
+        this.updateBackgroundUnified();
         
         // Reset scrolling flag after animation
         setTimeout(() => {
@@ -192,30 +246,20 @@ class SimpleScroller {
         }
     }
     
-    updateBackground() {
-        const body = document.body;
-        
-        // Remove all existing background classes
-        const classList = body.classList;
-        for (let i = classList.length - 1; i >= 0; i--) {
-            const className = classList[i];
-            if (className.startsWith('bg-page-') || className.startsWith('bg-online-')) {
-                classList.remove(className);
+    updateBackgroundUnified() {
+        // Use the unified background manager if available
+        if (window.unifiedBackgroundManager) {
+            window.unifiedBackgroundManager.changeBackground(this.currentPage);
+        } else {
+            // Fallback: create unified manager if not available
+            console.log('🎨 Creating UnifiedBackgroundManager...');
+            if (window.UnifiedBackgroundManager) {
+                window.unifiedBackgroundManager = new window.UnifiedBackgroundManager();
+                window.unifiedBackgroundManager.changeBackground(this.currentPage);
+            } else {
+                console.warn('⚠️ UnifiedBackgroundManager class not available');
             }
         }
-        
-        // Add new background class for current page
-        const pageClass = `bg-page-${this.currentPage}`;
-        const onlineClass = `bg-online-${this.currentPage}`;
-        
-        // Try local image first, fallback to online
-        body.classList.add(pageClass);
-        
-        // If local image fails to load, use online fallback
-        // This is handled by CSS - online classes have same specificity
-        body.classList.add(onlineClass);
-        
-        console.log(`🎨 Background updated to page ${this.currentPage}`);
     }
     
     // Method to update total pages (call this after adding content)
@@ -327,15 +371,36 @@ class MusicController {
 }
 
 // Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize background manager first (with JSON loading)
+    if (!window.unifiedBackgroundManager) {
+        window.unifiedBackgroundManager = new UnifiedBackgroundManager();
+        console.log('🎨 Unified Background Manager initialized first');
+    }
+    
+    // Wait a moment for background manager to load JSON
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
     // Create global scroller instance
     window.scroller = new SimpleScroller();
     
     // Create global music controller instance
     window.musicController = new MusicController();
     
+    // Performance monitoring
+    setTimeout(() => {
+        if (window.unifiedBackgroundManager) {
+            const stats = window.unifiedBackgroundManager.getStats();
+            console.log('📊 Performance Stats:', stats);
+            
+            if (stats.memoryUsage.status === 'high') {
+                console.warn('⚠️ High memory usage detected. Consider enabling lazy loading.');
+            }
+        }
+    }, 2000);
+    
     // Add some helpful console messages
-    console.log('🚀 Project IO MVP initialized!');
+    console.log('🚀 Project IO MVP initialized with performance optimizations!');
     console.log('📱 Use arrow keys, spacebar, or scroll to navigate');
     console.log('🔄 Current page:', window.scroller.getCurrentPage());
     
@@ -362,7 +427,17 @@ window.ProjectIO = {
     playMusic: () => window.musicController?.playMusic(),
     pauseMusic: () => window.musicController?.pauseMusic(),
     setVolume: (volume) => window.musicController?.setVolume(volume),
-    isMusicPlaying: () => window.musicController?.isPlaying
+    isMusicPlaying: () => window.musicController?.isPlaying,
+    
+    // Performance and background functions
+    getStats: () => window.unifiedBackgroundManager?.getStats(),
+    enableDebugMode: () => window.unifiedBackgroundManager?.setDebugMode(true),
+    disableDebugMode: () => window.unifiedBackgroundManager?.setDebugMode(false),
+    preloadNearbyImages: (radius) => window.unifiedBackgroundManager?.preloadNearbyImages(window.scroller?.getCurrentPage(), radius),
+    resetBackgrounds: () => window.unifiedBackgroundManager?.reset(),
+    
+    // Database functions (if using JSON build)
+    reloadDatabase: () => window.scroller?.loadJSONDatabase()
 };
 
 // Handle page visibility changes (pause/resume when tab becomes active/inactive)

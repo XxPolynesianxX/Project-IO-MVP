@@ -4,9 +4,14 @@
   "description": "A simple, Instagram-like scrolling experience for your content",
   "main": "index.html",
   "scripts": {
-    "build": "node build.js",
-    "dev": "node build.js && echo 'Open index.html in your browser'",
-    "watch": "node watch.js"
+    "build": "node build-json.js",
+    "build-html": "node build.js",
+    "dev": "node build-json.js && echo 'Open index.html in your browser'",
+    "watch": "node watch.js",
+    "migrate": "node migrate-to-json.js",
+    "add": "node build-json.js add",
+    "list": "node build-json.js list",
+    "search": "node build-json.js search"
   },
   "keywords": [
     "scrolling",
