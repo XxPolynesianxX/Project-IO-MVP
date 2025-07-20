@@ -10,7 +10,7 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background: #000;
-    background-image: url('../assets/images/natural-landscape-photography-awards-winners-06.jpg');
+    /* background-image: url('../assets/images/natural-landscape-photography-awards-winners-06.jpg'); */
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;

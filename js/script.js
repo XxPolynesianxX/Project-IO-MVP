@@ -21,7 +21,10 @@ class SimpleScroller {
         this.setupKeyboardNavigation();
         this.setupTouchGestures();
         this.updateProgress();
-        // Background initialization handled by UnifiedBackgroundManager
+        
+        // Set initial background for page 1
+        console.log('🎨 Setting initial background for page 1...');
+        this.updateBackgroundUnified();
         
         // Hide touch hint after 5 seconds
         setTimeout(() => {
@@ -62,6 +65,13 @@ class SimpleScroller {
     }
     
     loadBackgroundMappings(pages) {
+        // Check if UnifiedBackgroundManager already has JSON mappings loaded
+        if (window.unifiedBackgroundManager && Object.keys(window.unifiedBackgroundManager.backgroundMappings).length > 0) {
+            console.log('✅ Background mappings already loaded from JSON, skipping override');
+            return; // Don't override existing JSON mappings
+        }
+        
+        // Fallback: Create mappings if JSON system failed
         const mappings = {};
         pages.forEach((page) => {
             const pageNumber = page.order || page.id;
@@ -79,7 +89,7 @@ class SimpleScroller {
         
         if (Object.keys(mappings).length > 0 && window.unifiedBackgroundManager) {
             window.unifiedBackgroundManager.addBackgroundMappings(mappings);
-            console.log(`🎨 Loaded ${Object.keys(mappings).length} JSON-driven background mappings`);
+            console.log(`🎨 Added ${Object.keys(mappings).length} fallback background mappings`);
         }
     }
     
@@ -163,6 +173,11 @@ class SimpleScroller {
     }
     
     detectCurrentPage() {
+        // Don't update page during programmatic scrolling to prevent race conditions
+        if (this.isScrolling) {
+            return;
+        }
+        
         const scrollTop = this.container.scrollTop;
         const pageHeight = window.innerHeight;
         const newPage = Math.round(scrollTop / pageHeight) + 1;
@@ -373,13 +388,25 @@ class MusicController {
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', async () => {
     // Initialize background manager first (with JSON loading)
-    if (!window.unifiedBackgroundManager) {
-        window.unifiedBackgroundManager = new UnifiedBackgroundManager();
-        console.log('🎨 Unified Background Manager initialized first');
+    console.log('🎨 Creating Unified Background Manager...');
+    window.unifiedBackgroundManager = new UnifiedBackgroundManager();
+    console.log('✅ Unified Background Manager created successfully');
+    
+    // Wait for background manager to fully initialize and load JSON
+    console.log('⏳ Waiting for background manager initialization...');
+    
+    // Wait for JSON loading to complete by checking if mappings exist
+    let attempts = 0;
+    while (attempts < 20 && Object.keys(window.unifiedBackgroundManager.backgroundMappings).length === 0) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        attempts++;
     }
     
-    // Wait a moment for background manager to load JSON
-    await new Promise(resolve => setTimeout(resolve, 100));
+    if (Object.keys(window.unifiedBackgroundManager.backgroundMappings).length > 0) {
+        console.log('✅ Background mappings loaded successfully');
+    } else {
+        console.warn('⚠️ Background mappings may not be fully loaded');
+    }
     
     // Create global scroller instance
     window.scroller = new SimpleScroller();

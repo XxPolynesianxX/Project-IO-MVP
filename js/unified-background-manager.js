@@ -15,7 +15,7 @@ class UnifiedBackgroundManager {
         this.config = {
             transitionDuration: 800, // Faster transitions for better performance
             enablePreloading: true,
-            enableFallbacks: true,
+            enableFallbacks: false,
             enableLazyLoading: true,
             preloadBatchSize: 3, // Preload 3 images at a time
             debugMode: true, // Enable debug mode to see JSON loading
@@ -593,12 +593,5 @@ window.addPageBackgrounds = (mappings) => {
 };
 
 // Initialize on DOM ready (but don't auto-instantiate - let the main script handle it)
-if (typeof document !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', async () => {
-        // Only create if not already created
-        if (!window.unifiedBackgroundManager) {
-            window.unifiedBackgroundManager = new UnifiedBackgroundManager();
-            console.log('🎨 Unified Background Manager auto-initialized');
-        }
-    });
-}
+// Note: Initialization is now handled exclusively by script.js to prevent double initialization
+// The UnifiedBackgroundManager class is available globally as window.UnifiedBackgroundManager
